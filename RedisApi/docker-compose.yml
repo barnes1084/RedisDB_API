@@ -1,0 +1,20 @@
+﻿version: '3.8'
+services:
+  redisapi:
+    image: redisapi
+    build:
+      context: .
+      dockerfile: RedisApi/Dockerfile
+    ports:
+      - "8000:8080"
+      - "8001:8081"
+    depends_on:
+      - redis
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__Redis=redis:6379
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
